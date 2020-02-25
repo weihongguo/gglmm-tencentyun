@@ -2,7 +2,7 @@ module github.com/weihongguo/gglmm-tencentyun
 
 go 1.13
 
-replace github.com/weihongguo/gglmm => ../../gglmm/gglmm
+replace github.com/weihongguo/gglmm => ../gglmm
 
 require (
 	github.com/tencentyun/cos-go-sdk-v5 v0.0.0-20200120023323-87ff3bc489ac
