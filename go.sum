@@ -87,6 +87,8 @@ github.com/tencentyun/cos-go-sdk-v5 v0.0.0-20200120023323-87ff3bc489ac h1:PSBhZb
 github.com/tencentyun/cos-go-sdk-v5 v0.0.0-20200120023323-87ff3bc489ac/go.mod h1:wQBO5HdAkLjj2q6XQiIfDSP8DXDNrppDRw2Kp/1BODA=
 github.com/tencentyun/qcloud-cos-sts-sdk v0.0.0-20200114083554-ddec1bbea416 h1:Snky0Eg1VQ9DxRU2JAu7rxwwuw0jvkBmYFud0NIyXKs=
 github.com/tencentyun/qcloud-cos-sts-sdk v0.0.0-20200114083554-ddec1bbea416/go.mod h1:b18KQa4IxHbxeseW1GcZox53d7J0z39VNONTxvvlkXw=
+github.com/weihongguo/gglmm v0.0.0-20200225064623-73efc6160d28 h1:rUb3x6fbL6K7pKPz+aWgg0Y3CjNudq50fcLFoWxRWkg=
+github.com/weihongguo/gglmm v0.0.0-20200225064623-73efc6160d28/go.mod h1:0HRQzLRQOXFBTfbBAg+1vWVXyeM+Q5KmdmXaiKD2+SE=
 go.opencensus.io v0.20.1/go.mod h1:6WKK9ahsWS3RSO+PY9ZHZUfv2irvY6gN279GOPZjmmk=
 golang.org/x/crypto v0.0.0-20180904163835-0709b304e793/go.mod h1:6SG95UA2DQfeDnfUPMdvaQW0Q7yPrPDi9nlGo2tz2b4=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
