@@ -16,9 +16,9 @@ func main() {
 
 	// 登录态中间件请参考gglmm-account
 
-	gglmm.RegisterHTTPHandler(tencentyun.NewCosCredentialsService("secretID", "secretKey", "region", "appID", "bucket", cosPrefixKey), "/cos")
+	gglmm.RegisterHTTPHandler(tencentyun.NewCosCredentialsService("secretID", "secretKey", "region", "appID", "bucket", cosPrefixKey), "")
 
-	gglmm.RegisterHTTPHandler(tencentyun.NewCosUploadService("secretID", "secretKey", "region", "appID", "bucket", cosKeyFile), "/cos")
+	gglmm.RegisterHTTPHandler(tencentyun.NewCosUploadService("secretID", "secretKey", "region", "appID", "bucket", cosKeyFile), "")
 
 	gglmm.ListenAndServe(":10000")
 }

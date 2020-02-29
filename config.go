@@ -39,6 +39,6 @@ func (config ConfigTencentYun) Check() bool {
 	if !config.Cos.Check() {
 		return false
 	}
-	log.Println("config qqcloud check valid")
+	log.Println("config tencent yun check valid")
 	return true
 }

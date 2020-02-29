@@ -46,7 +46,7 @@ func NewCosCredentialsServiceConfig(config ConfigCos, prefixKeyFunc CosPrefixKey
 // CustomActions --
 func (service *CosCredentialsService) CustomActions() ([]*gglmm.HTTPAction, error) {
 	actions := []*gglmm.HTTPAction{
-		gglmm.NewHTTPAction("/credentials", service.Credentials, "GET"),
+		gglmm.NewHTTPAction("/cos/credentials", service.Credentials, "GET"),
 	}
 	return actions, nil
 }

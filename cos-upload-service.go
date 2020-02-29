@@ -48,7 +48,7 @@ func NewCosUploadServiceConfig(config ConfigCos, keyFileFunc CosKeyFileFunc) *Co
 // CustomActions --
 func (service *CosUploadService) CustomActions() ([]*gglmm.HTTPAction, error) {
 	actions := []*gglmm.HTTPAction{
-		gglmm.NewHTTPAction("/upload", service.Upload, "POST"),
+		gglmm.NewHTTPAction("/cos/upload", service.Upload, "POST"),
 	}
 	return actions, nil
 }
