@@ -2,6 +2,8 @@ module gglmm-tencentyun-example
 
 go 1.13
 
+replace github.com/weihongguo/gglmm => ../../gglmm
+
 replace github.com/weihongguo/gglmm-tencentyun => ../
 
 require (
