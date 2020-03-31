@@ -1,4 +1,4 @@
-package qqcloud
+package tencentyun
 
 import (
 	"context"
