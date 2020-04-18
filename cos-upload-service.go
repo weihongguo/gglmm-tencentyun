@@ -53,8 +53,8 @@ func (service *CosUploadService) CustomActions() ([]*gglmm.HTTPAction, error) {
 	return actions, nil
 }
 
-// RESTAction --
-func (service *CosUploadService) RESTAction(action gglmm.RESTAction) (*gglmm.HTTPAction, error) {
+// Action --
+func (service *CosUploadService) Action(action string) (*gglmm.HTTPAction, error) {
 	return nil, nil
 }
 
@@ -62,16 +62,16 @@ func (service *CosUploadService) RESTAction(action gglmm.RESTAction) (*gglmm.HTT
 func (service *CosUploadService) Upload(w http.ResponseWriter, r *http.Request) {
 	key, file, err := service.keyFileFunc(r)
 	if err != nil {
-		gglmm.NewFailResponse(err.Error()).WriteJSON(w)
+		gglmm.FailResponse(err.Error()).JSON(w)
 		return
 	}
 
 	if err = cosPutObj(service.cosClient, key, file); err != nil {
-		gglmm.NewFailResponse(err.Error()).WriteJSON(w)
+		gglmm.FailResponse(err.Error()).JSON(w)
 		return
 	}
 
-	gglmm.NewSuccessResponse().
+	gglmm.OkResponse().
 		AddData("url", key).
-		WriteJSON(w)
+		JSON(w)
 }

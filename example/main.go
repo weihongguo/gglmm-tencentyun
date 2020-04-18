@@ -5,20 +5,22 @@ import (
 	"net/http"
 
 	"github.com/weihongguo/gglmm"
+	redis "github.com/weihongguo/gglmm-redis"
 	tencentyun "github.com/weihongguo/gglmm-tencentyun"
 )
 
 func main() {
-	gglmm.RegisterRedisCacher("tcp", "127.0.0.1:6379", 10, 5, 3)
-	defer gglmm.CloseRedisCacher()
+	redisCacher := redis.NewCacher("tcp", "127.0.0.1:6379", 5, 10, 3, 30)
+	defer redisCacher.Close()
+	gglmm.RegisterCacher(redisCacher)
 
-	gglmm.RegisterBasePath("/api/example")
+	gglmm.BasePath("/api/example")
 
 	// 登录态中间件请参考gglmm-account
 
-	gglmm.RegisterHTTPHandler(tencentyun.NewCosCredentialsService("secretID", "secretKey", "region", "appID", "bucket", cosPrefixKey), "")
+	gglmm.HandleHTTP(tencentyun.NewCosCredentialsService("secretID", "secretKey", "region", "appID", "bucket", cosPrefixKey), "")
 
-	gglmm.RegisterHTTPHandler(tencentyun.NewCosUploadService("secretID", "secretKey", "region", "appID", "bucket", cosKeyFile), "")
+	gglmm.HandleHTTP(tencentyun.NewCosUploadService("secretID", "secretKey", "region", "appID", "bucket", cosKeyFile), "")
 
 	gglmm.ListenAndServe(":10000")
 }

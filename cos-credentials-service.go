@@ -51,8 +51,8 @@ func (service *CosCredentialsService) CustomActions() ([]*gglmm.HTTPAction, erro
 	return actions, nil
 }
 
-// RESTAction --
-func (service *CosCredentialsService) RESTAction(action gglmm.RESTAction) (*gglmm.HTTPAction, error) {
+// Action --
+func (service *CosCredentialsService) Action(action string) (*gglmm.HTTPAction, error) {
 	return nil, nil
 }
 
@@ -60,7 +60,7 @@ func (service *CosCredentialsService) RESTAction(action gglmm.RESTAction) (*gglm
 func (service *CosCredentialsService) Credentials(w http.ResponseWriter, r *http.Request) {
 	prefixKey, err := service.prefixKeyFunc(r)
 	if err != nil {
-		gglmm.NewFailResponse(err.Error()).WriteJSON(w)
+		gglmm.FailResponse(err.Error()).JSON(w)
 		return
 	}
 
@@ -68,18 +68,18 @@ func (service *CosCredentialsService) Credentials(w http.ResponseWriter, r *http
 	cacher := gglmm.DefaultCacher()
 	if cacher != nil {
 		if err := cacher.GetObj("cos-credentials-"+prefixKey, res); err == nil {
-			gglmm.NewSuccessResponse().
+			gglmm.OkResponse().
 				AddData("credentials", res.Credentials).
 				AddData("expiredTime", res.ExpiredTime).
 				AddData("expiration", res.Expiration).
-				WriteJSON(w)
+				JSON(w)
 			return
 		}
 	}
 
 	res, err = stsGetCredential(service.stsClient, service.region, service.appID, service.bucket, prefixKey)
 	if err != nil {
-		gglmm.NewFailResponse(err.Error()).WriteJSON(w)
+		gglmm.FailResponse(err.Error()).JSON(w)
 		return
 	}
 
@@ -87,9 +87,9 @@ func (service *CosCredentialsService) Credentials(w http.ResponseWriter, r *http
 		cacher.SetEx("cos-credentials-"+prefixKey, res, 30*60)
 	}
 
-	gglmm.NewSuccessResponse().
+	gglmm.OkResponse().
 		AddData("credentials", res.Credentials).
 		AddData("expiredTime", res.ExpiredTime).
 		AddData("expiration", res.Expiration).
-		WriteJSON(w)
+		JSON(w)
 }
