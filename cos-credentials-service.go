@@ -64,32 +64,32 @@ func (service *CosCredentialsService) Credentials(w http.ResponseWriter, r *http
 		return
 	}
 
-	res := &sts.CredentialResult{}
+	result := &sts.CredentialResult{}
 	cacher := gglmm.DefaultCacher()
 	if cacher != nil {
-		if err := cacher.GetObj("cos-credentials-"+prefixKey, res); err == nil {
+		if err := cacher.GetObj("cos-credentials-"+prefixKey, result); err == nil {
 			gglmm.OkResponse().
-				AddData("credentials", res.Credentials).
-				AddData("expiredTime", res.ExpiredTime).
-				AddData("expiration", res.Expiration).
+				AddData("credentials", result.Credentials).
+				AddData("expiredTime", result.ExpiredTime).
+				AddData("expiration", result.Expiration).
 				JSON(w)
 			return
 		}
 	}
 
-	res, err = stsGetCredential(service.stsClient, service.region, service.appID, service.bucket, prefixKey)
+	result, err = stsGetCredential(service.stsClient, service.region, service.appID, service.bucket, prefixKey)
 	if err != nil {
 		gglmm.FailResponse(err.Error()).JSON(w)
 		return
 	}
 
 	if cacher != nil {
-		cacher.SetEx("cos-credentials-"+prefixKey, res, 30*60)
+		cacher.SetEx("cos-credentials-"+prefixKey, result, 30*60)
 	}
 
 	gglmm.OkResponse().
-		AddData("credentials", res.Credentials).
-		AddData("expiredTime", res.ExpiredTime).
-		AddData("expiration", res.Expiration).
+		AddData("credentials", result.Credentials).
+		AddData("expiredTime", result.ExpiredTime).
+		AddData("expiration", result.Expiration).
 		JSON(w)
 }

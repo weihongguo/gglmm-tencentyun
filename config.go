@@ -1,7 +1,6 @@
 package tencentyun
 
 import (
-	"log"
 	"strings"
 )
 
@@ -25,7 +24,6 @@ func (config ConfigCos) Check() bool {
 	if config.AppID == "" || config.Bucket == "" || !strings.Contains(config.Bucket, "-") {
 		return false
 	}
-	log.Println("config cos check valid")
 	return true
 }
 
@@ -39,6 +37,5 @@ func (config ConfigTencentYun) Check() bool {
 	if !config.Cos.Check() {
 		return false
 	}
-	log.Println("config tencent yun check valid")
 	return true
 }
