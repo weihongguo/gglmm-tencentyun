@@ -16,11 +16,11 @@ func main() {
 
 	gglmm.BasePath("/api/example")
 
-	// 登录态中间件请参考gglmm-account
+	cosService := tencentyun.NewCosService("secretID", "secretKey", "region", "appID", "bucket").PrefixKeyFunc(cosPrefixKey).KeyFileFunc(cosKeyFile)
 
-	gglmm.HandleHTTP(tencentyun.NewCosCredentialsService("secretID", "secretKey", "region", "appID", "bucket", cosPrefixKey), "")
+	gglmm.HandleHTTPAction("/cos/credentials", cosService.Credentials, "GET")
 
-	gglmm.HandleHTTP(tencentyun.NewCosUploadService("secretID", "secretKey", "region", "appID", "bucket", cosKeyFile), "")
+	gglmm.HandleHTTPAction("/cos/upload", cosService.Upload, "POST")
 
 	gglmm.ListenAndServe(":10000")
 }
