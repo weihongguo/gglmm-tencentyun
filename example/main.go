@@ -16,7 +16,9 @@ func main() {
 
 	gglmm.BasePath("/api/example")
 
-	cosService := tencentyun.NewCosService("secretID", "secretKey", "region", "appID", "bucket").PrefixKeyFunc(cosPrefixKey).KeyFileFunc(cosKeyFile)
+	cosService := tencentyun.NewCosService("secretID", "secretKey", "region", "appID", "bucket").
+		SupportCredentials(cosPrefixKey).
+		SupportUpload(cosKeyFile)
 
 	gglmm.HandleHTTPAction("/cos/credentials", cosService.Credentials, "GET")
 

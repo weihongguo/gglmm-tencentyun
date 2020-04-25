@@ -41,8 +41,8 @@ func NewCosServiceConfig(config ConfigCos) *CosService {
 	return NewCosService(config.SecretID, config.SecretKey, config.Region, config.AppID, config.Bucket)
 }
 
-// PrefixKeyFunc --
-func (service *CosService) PrefixKeyFunc(prefixKeyFunc CosPrefixKeyFunc) *CosService {
+// SupportCredentials --
+func (service *CosService) SupportCredentials(prefixKeyFunc CosPrefixKeyFunc) *CosService {
 	stsClient, err := newStsClient(service.secretID, service.secretKey)
 	if err != nil {
 		log.Fatal(err)
@@ -52,8 +52,8 @@ func (service *CosService) PrefixKeyFunc(prefixKeyFunc CosPrefixKeyFunc) *CosSer
 	return service
 }
 
-// KeyFileFunc --
-func (service *CosService) KeyFileFunc(keyFileFunc CosKeyFileFunc) *CosService {
+// SupportUpload --
+func (service *CosService) SupportUpload(keyFileFunc CosKeyFileFunc) *CosService {
 	cosClient, err := newCosClient(service.secretID, service.secretKey, service.region, service.appID, service.bucket)
 	if err != nil {
 		log.Fatal(err)
