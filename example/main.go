@@ -28,6 +28,7 @@ func main() {
 }
 
 func cosPrefixKey(r *http.Request) (string, error) {
+	// TODO
 	// 根据请求计算路径前缀
 	return "example", nil
 }
@@ -37,8 +38,7 @@ func cosKeyFile(r *http.Request) (string, multipart.File, error) {
 	if err != nil {
 		return "", nil, err
 	}
-
+	// TODO
 	// 其他判断
-
 	return "example", file, nil
 }
