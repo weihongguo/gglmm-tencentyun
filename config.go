@@ -1,8 +1,12 @@
 package tencentyun
 
 import (
+	"errors"
 	"strings"
 )
+
+// ErrCosUpload --
+var ErrCosUpload = errors.New("Cos上传文件失败")
 
 // ConfigCos --
 type ConfigCos struct {

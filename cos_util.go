@@ -2,7 +2,6 @@ package tencentyun
 
 import (
 	"context"
-	"errors"
 	"mime/multipart"
 	"net/http"
 	"net/url"
@@ -61,9 +60,6 @@ func newCosClient(secretID string, secretKey string, region string, appID string
 
 // CosKeyFileFunc --
 type CosKeyFileFunc func(r *http.Request) (key string, file multipart.File, err error)
-
-// ErrCosUpload --
-var ErrCosUpload = errors.New("Cos上传文件失败")
 
 func cosPutObj(cosClient *cos.Client, key string, file multipart.File) error {
 	res, err := cosClient.Object.Put(context.Background(), key, file, nil)
