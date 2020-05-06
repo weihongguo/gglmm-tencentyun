@@ -67,8 +67,7 @@ func (service *CosService) SupportUpload(keyFileFunc CosKeyFileFunc) *CosService
 func (service *CosService) Credentials(w http.ResponseWriter, r *http.Request) {
 	prefixKey, err := service.prefixKeyFunc(r)
 	if err != nil {
-		gglmm.ErrorResponse(err.Error()).JSON(w)
-		return
+		gglmm.Panic(err)
 	}
 
 	result := &sts.CredentialResult{}
@@ -86,8 +85,7 @@ func (service *CosService) Credentials(w http.ResponseWriter, r *http.Request) {
 
 	result, err = stsGetCredential(service.stsClient, service.region, service.appID, service.bucket, prefixKey)
 	if err != nil {
-		gglmm.ErrorResponse(err.Error()).JSON(w)
-		return
+		gglmm.Panic(err)
 	}
 
 	if cacher != nil {
@@ -105,15 +103,11 @@ func (service *CosService) Credentials(w http.ResponseWriter, r *http.Request) {
 func (service *CosService) Upload(w http.ResponseWriter, r *http.Request) {
 	key, file, err := service.keyFileFunc(r)
 	if err != nil {
-		gglmm.ErrorResponse(err.Error()).JSON(w)
-		return
+		gglmm.Panic(err)
 	}
-
 	if err = cosPutObj(service.cosClient, key, file); err != nil {
-		gglmm.ErrorResponse(err.Error()).JSON(w)
-		return
+		gglmm.Panic(err)
 	}
-
 	gglmm.OkResponse().
 		AddData("url", key).
 		JSON(w)
