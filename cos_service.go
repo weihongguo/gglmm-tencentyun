@@ -25,6 +25,11 @@ type CosService struct {
 	keyFileFunc CosKeyFileFunc
 }
 
+// NewCosServiceConfig --
+func NewCosServiceConfig(config ConfigCos) *CosService {
+	return NewCosService(config.SecretID, config.SecretKey, config.Region, config.AppID, config.Bucket)
+}
+
 // NewCosService --
 func NewCosService(secretID string, secretKey string, region string, appID string, bucket string) *CosService {
 	return &CosService{
@@ -34,11 +39,6 @@ func NewCosService(secretID string, secretKey string, region string, appID strin
 		appID:     appID,
 		bucket:    bucket,
 	}
-}
-
-// NewCosServiceConfig --
-func NewCosServiceConfig(config ConfigCos) *CosService {
-	return NewCosService(config.SecretID, config.SecretKey, config.Region, config.AppID, config.Bucket)
 }
 
 // SupportCredentials --
