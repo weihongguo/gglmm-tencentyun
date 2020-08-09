@@ -10,15 +10,12 @@ import (
 )
 
 func main() {
-	redisCacher := redis.NewCacher("tcp", "127.0.0.1:6379", 5, 10, 3, 30)
-	defer redisCacher.Close()
-	gglmm.RegisterCacher(redisCacher)
+	cacher := redis.NewCacher("tcp", "127.0.0.1:6379", 5, 10, 3, 30)
+	defer cacher.Close()
 
 	gglmm.BasePath("/api/example")
 
-	cosService := tencentyun.NewCosService("secretID", "secretKey", "region", "appID", "bucket").
-		SupportCredentials(cosPrefixKey).
-		SupportUpload(cosKeyFile)
+	cosService := tencentyun.NewCosService(cosPrefixKey, cosKeyFile, cacher)
 
 	gglmm.HandleHTTPAction("/cos/credentials", cosService.Credentials, "GET")
 
@@ -27,18 +24,18 @@ func main() {
 	gglmm.ListenAndServe(":10000")
 }
 
-func cosPrefixKey(r *http.Request) (string, error) {
+func cosPrefixKey(r *http.Request) (*tencentyun.ConfigCos, string, error) {
 	// TODO
 	// 根据请求计算路径前缀
-	return "example", nil
+	return nil, "example", nil
 }
 
-func cosKeyFile(r *http.Request) (string, multipart.File, error) {
+func cosKeyFile(r *http.Request) (*tencentyun.ConfigCos, string, multipart.File, error) {
 	file, _, err := r.FormFile("example")
 	if err != nil {
-		return "", nil, err
+		return nil, "", nil, err
 	}
 	// TODO
 	// 其他判断
-	return "example", file, nil
+	return nil, "example", file, nil
 }

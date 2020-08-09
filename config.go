@@ -31,15 +31,7 @@ func (config ConfigCos) Check() bool {
 	return true
 }
 
-// ConfigTencentYun --
-type ConfigTencentYun struct {
+// ConfigTencentyun --
+type ConfigTencentyun struct {
 	Cos ConfigCos
-}
-
-// Check --
-func (config ConfigTencentYun) Check() bool {
-	if !config.Cos.Check() {
-		return false
-	}
-	return true
 }

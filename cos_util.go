@@ -16,7 +16,7 @@ func newStsClient(secretID string, secretKey string) (*sts.Client, error) {
 }
 
 // CosPrefixKeyFunc --
-type CosPrefixKeyFunc func(r *http.Request) (prefixKey string, err error)
+type CosPrefixKeyFunc func(r *http.Request) (config *ConfigCos, prefixKey string, err error)
 
 func stsGetCredential(stsClient *sts.Client, region string, appID string, bucket string, prefixKey string) (*sts.CredentialResult, error) {
 	opts := &sts.CredentialOptions{
@@ -59,7 +59,7 @@ func newCosClient(secretID string, secretKey string, region string, appID string
 }
 
 // CosKeyFileFunc --
-type CosKeyFileFunc func(r *http.Request) (key string, file multipart.File, err error)
+type CosKeyFileFunc func(r *http.Request) (config *ConfigCos, key string, file multipart.File, err error)
 
 func cosPutObj(cosClient *cos.Client, key string, file multipart.File) error {
 	res, err := cosClient.Object.Put(context.Background(), key, file, nil)
